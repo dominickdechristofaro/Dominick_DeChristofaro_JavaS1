@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: Month Converter
+  description: A simple service that converts a number to the name of the month it converts to.
+  version: 0.0.1
+servers: 
+    - url: http://localhost:8080
+      description: Local dev server
+
+paths:
+  /day/{monthNumber}:
+    get:
+      summary: Converts the {monthNumber} to the name of the month.
+      description: A simple demo service that converts {monthNumber} to the name of the month.
+      parameters: 
+        - name: monthNumber
+          in: path
+          required: true
+          description: An integer number between 1 and 12.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            maximum: 12
+      responses:
+        '200':
+          description: The name of the month that the number converts to.
+          content:
+            application/json:
+              schema:
+                type: integer
+        '422':
+          description: You must enter a number between 1 and 12.

@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: Weather API
+  description: A simple weather service application.
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080'
+    description: Local dev server
+    
+paths:
+  /temp/{zipcode}:
+    get:
+      summary: The zipcode of the area you would like the temperature at.
+      parameters:
+        - name: zipcode
+          in: path
+          required: true
+          description: The 5 digit zip code you would like the temperature at.
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 99999
+      responses:
+        '200':
+          description: The temperature at the zipcode input in both Fahrenheit and Celsius.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conditions/properties/Temperature'
+        '422':
+          description: You must enter a valid zipcode.
+  /conditions/{zipcode}:
+    get:
+      summary: The conditions of the area of the zipcode entered.
+      parameters:
+        - name: zipcode
+          in: path
+          required: true
+          description: The 5 digit zip code you would like the temperature at.
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 99999
+      responses:
+        '200':
+          description: The Conditions at the zipcode input. Conditions include Temperature (Fahrenheit & Celsius), Wind Speed, Wind Direction, Skies (Sunny, Cloudy, Partly Sunny), Precipitation (Rain, Snow, Mist).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conditions'
+        '422':
+          description: You must enter a valid zipcode.
+components:
+  schemas:
+    Conditions:
+      properties:
+        windSpeed:
+          type: number
+        windDirection:
+          type: string
+        skies:
+          type: string
+        precipitation:
+          type: string
+        Temperature:
+          properties:
+            Fahrenheit:
+              type: number
+            Celsius:
+              type: number
