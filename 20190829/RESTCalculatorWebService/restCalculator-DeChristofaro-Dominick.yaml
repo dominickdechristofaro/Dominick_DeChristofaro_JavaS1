@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: REST Calculator
+  description: A service that performs simple calculator calculations such as add, subtract, multiply, and divide. 
+  version: 0.0.1
+servers: 
+    - url: http://localhost:8080
+      description: Local dev server
+
+paths:
+  /add:
+    post:
+      summary: Sum of operand1 and operand2.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/operands'
+      responses:
+        '201':
+          description: Sum of operand1 and operand2.
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete operand information.
+  /mult:
+    post:
+      summary: Product of operand1 and operand2.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/operands'
+      responses:
+        '201':
+          description: Product of operand1 and operand2.
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete operand information.
+  /subtract:
+    post:
+      summary: Difference of operand1 and operand2.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/operands'
+      responses:
+        '201':
+          description: Difference of operand1 and operand2.
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete operand information.
+  /divide:
+    post:
+      summary: Quotient of operand1 and operand2.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/operands'
+      responses:
+        '201':
+          description: Quotient of operand1 and operand2.
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete operand information.
+components:
+  schemas:
+    operands:
+      properties:
+        operand1:
+          type: integer
+        operand2:
+          type: integer
+      required:
+        - operand1
+        - operand2
