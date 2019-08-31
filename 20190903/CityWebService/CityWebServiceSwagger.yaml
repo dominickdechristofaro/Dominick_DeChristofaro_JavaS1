@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: City Web Service
+  description: A simple city web service to add, delete, list, and search for cities by name.
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080'
+    description: Local dev server
+  
+paths:
+  /city:
+    post:
+      summary: Add a city to the list of cities.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/city'
+      responses:
+        '200':
+          description: The city has been sucessfully added to the list of cities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/city'
+        '422':
+          description: Unprocessable entity. Please enter a unique city name, with it's state, population, and boolean value for capital is optional.
+    get:
+      summary: Retrieve the list of all the cities.
+      responses:
+        '200': 
+          description: Request sucessful, all cities returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/city'
+        
+  /city/{name}:
+    delete:
+      summary: Delete a city by name.
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: The name of the city the user would like to delete.
+        schema:
+          $ref: '#/components/schemas/city'
+      responses:
+        '200':
+          description: You have sucessfully deleted the city from the list.
+        '404':
+          description: City not found in list.
+    get:
+      summary: Retrieve one city by name.
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: The name of the city you would like to retrieve.
+        schema:
+          $ref: '#/components/schemas/city'
+      responses:
+        '200':
+          description: The city you selected is in the list and has been returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/city'
+        '404':
+          description: The city you input is not in the list.
+components:
+  schemas:
+    city:
+      properties:
+        name:
+          type: string
+        state:
+          type: string
+        population:
+          type: integer
+        capital:
+          type: boolean
