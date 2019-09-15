@@ -1,0 +1,286 @@
+openapi: 3.0.0
+info:
+  title: Book Store API
+  description: A relational database that keeps track of books, authors, and publishers.
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080'
+    description: Local dev server
+  
+paths:
+  /author:
+    get:
+      summary: A List of all Authors.
+      responses:
+        '200':
+          description: A List of all Authors in the database.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+    post:
+      summary: Create a new Author in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        '200':
+          description: The Author has been created and added to the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+    put:
+      summary: Update an Author in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        '200':
+          description: The Author has been updated in the database.
+  /author/{id}:
+    get:
+      summary: Retrieve a single Author in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Author to be retrieved from the database.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A single Author was retrieved from the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+    delete:
+      summary: Delete an Author in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Author to be removed from the database.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The Author was removed from the database.
+  /book:
+    get:
+      summary: A List of all Books.
+      responses:
+        '200':
+          description: A List of all Books in the database.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Create a new Book in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: The Book has been created and added to the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    put:
+      summary: Update an Book in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: The Book has been updated in the database.
+  /book/{id}:
+    get:
+      summary: Retrieve a single Book in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Book to be retrieved from the database.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A single Book was retrieved from the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    delete:
+      summary: Delete an Book in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Book to be removed from the database.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The Book was removed from the database.
+  /book/author/{id}:
+    get:
+      summary: Get a List of Books by Author ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Author you would like to see books from.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The List of Books by author.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+  /publisher:
+    get:
+      summary: A List of all Publishers.
+      responses:
+        '200':
+          description: A List of all Publishers in the database.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Publisher'
+    post:
+      summary: Create a new Publisher in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publisher'
+      responses:
+        '200':
+          description: The Publisher has been created and added to the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publisher'
+    put:
+      summary: Update an Publisher in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publisher'
+      responses:
+        '200':
+          description: The Publisher has been updated in the database.
+  /publisher/{id}:
+    get:
+      summary: Retrieve a single Publisher in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Publisher to be retrieved from the database.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A single Publisher was retrieved from the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publisher'
+    delete:
+      summary: Delete an Publisher in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Publisher to be removed from the database.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The Publisher was removed from the database.
+components:
+  schemas:
+    Author:
+      properties:
+        author_id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postal_code:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+    Book:
+      properties:
+        book_id:
+          type: integer
+        isbn:
+          type: string
+        publish_date:
+          type: string
+        author_id:
+          type: integer
+        title:
+          type: string
+        publisher_id:
+          type: integer
+        price:
+          type: number
+    Publisher:
+      properties:
+        publisher_id:
+          type: integer
+        name:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postal_code:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
