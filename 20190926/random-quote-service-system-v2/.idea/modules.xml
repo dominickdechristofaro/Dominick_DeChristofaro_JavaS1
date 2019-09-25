@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/dominick-dechristofaro-magic-eight-ball-service/dominick-dechristofaro-magic-eight-ball-service.iml" filepath="$PROJECT_DIR$/dominick-dechristofaro-magic-eight-ball-service/dominick-dechristofaro-magic-eight-ball-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dominick-dechristofaro-random-quote-service/dominick-dechristofaro-random-quote-service.iml" filepath="$PROJECT_DIR$/dominick-dechristofaro-random-quote-service/dominick-dechristofaro-random-quote-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dominick-dechristofaro-service-registry/dominick-dechristofaro-service-registry.iml" filepath="$PROJECT_DIR$/dominick-dechristofaro-service-registry/dominick-dechristofaro-service-registry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/random-quote-service-system-v2.iml" filepath="$PROJECT_DIR$/.idea/random-quote-service-system-v2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-config-server/spring-config-service.iml" filepath="$PROJECT_DIR$/cloud-config-server/spring-config-service.iml" />
+    </modules>
+  </component>
+</project>
