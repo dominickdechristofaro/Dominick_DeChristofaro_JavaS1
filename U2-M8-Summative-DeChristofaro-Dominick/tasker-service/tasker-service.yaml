@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: Tasker REST API
+  description: A database backed REST API for Task management that generates random advertisements.
+  version: 0.0.1
+servers:
+  - url: http://localhost:7777
+
+paths:
+  /tasks:
+    post:
+      summary: Create a new Task.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskViewModel'
+      responses:
+        '204':
+          description: Create a new Task entry in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskViewModel'
+        '422':
+          description: User has input invalid parameters or has omitted required parameters when trying to add a Task to the database.
+    put:
+      summary: Update a Task in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskViewModel'
+      responses:
+        '200':
+          description: The Task has been updated in the database.
+        '422':
+          description: The Task was not found in the database.
+    get:
+      summary: Get a List of all Tasks in the database.
+      responses:
+        '200':
+          description: A List of all Tasks in the database is returned to the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskViewModel'
+  /tasks/{id}:
+    get:
+      summary: Retrieve a single Task from the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Task to be retrieved from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: A single Task was retrieved from the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskViewModel'
+        '422':
+          description: The Task requested was not found in the database.
+    delete:
+      summary: Delete a Task from the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Task to be removed from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: The Task was sucessfully removed from the database.
+        '422':
+          description: The Task was not found in the database.
+  /tasks/category/{category}:
+    get:
+      summary: Find tasks by category.
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: The catageory of tasks requested to be returned to the user
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A List of Tasks by category is returned to the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskViewModel'
+components:
+  schemas:
+    TaskViewModel:
+      properties:
+        id:
+          type: number
+        description:
+          type: string
+        createDate:
+          type: string
+        dueDate:
+          type: string
+        category:
+          type: string
+        advertisement:
+          type: string
