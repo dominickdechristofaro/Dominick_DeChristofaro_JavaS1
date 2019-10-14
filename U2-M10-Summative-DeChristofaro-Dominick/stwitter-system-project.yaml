@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  title: Stwitter REST API
+  description: Switter (Simple Twitter) is a stripped down social media service that supports posting and commenting.
+  version: 0.0.1
+servers:
+  - url: http://localhost:8889
+
+paths:
+  /posts:
+    post:
+      summary: Create a new Post.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostViewModel'
+      responses:
+        '204':
+          description: Create a new Post entry in the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostViewModel'
+        '422':
+          description: User has input invalid parameters or has omitted required parameters when trying to add a Post to the database.
+  /posts/{id}:
+    get:
+      summary: Retrieve a single Post from the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Post to be retrieved from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: A single Post was retrieved from the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostViewModel'
+        '422':
+          description: The Post requested was not found in the database.
+  /posts/user/{poster_name}:
+    get:
+      summary: Find posts by poster name.
+      parameters:
+        - name: poster_name
+          in: path
+          required: true
+          description: The poster name of posters requested to be returned to the user
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A List of posts by poster name is returned to the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostViewModel'
+components:
+  schemas:
+    PostViewModel:
+      properties:
+        postId:
+          type: number
+        content:
+          type: string
+        postDate:
+          type: string
+        posterName:
+          type: string
+        comments:
+          type: array

@@ -1,0 +1,9 @@
+CREATE SCHEMA IF NOT EXISTS post;
+USE post;
+
+CREATE TABLE IF NOT EXISTS post (
+	post_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    post_date DATE NOT NULL,
+    poster_name VARCHAR(50) NOT NULL,
+    post VARCHAR(255)
+);
