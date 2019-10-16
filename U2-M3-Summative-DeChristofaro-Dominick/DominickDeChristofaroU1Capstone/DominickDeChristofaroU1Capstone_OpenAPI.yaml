@@ -1,0 +1,463 @@
+openapi: 3.0.0
+info:
+  title: Video Game Store REST API
+  description: A simple database backed REST inventory management web serivce for a Video Game Store.
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080'
+    description: Local dev server
+  
+paths:
+  /console:
+    get:
+      summary: A list of all consoles.
+      responses:
+        '200':
+          description: A list of all Authors in the database.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Console'
+    post:
+      summary: Create a new Console.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Console'
+      responses:
+        '200':
+          description: The Console has been created and added to the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+        '422':
+          description: User has omitted required parameters when trying to add a Console to the database.
+    put:
+      summary: Update an Console in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Console'
+      responses:
+        '200':
+          description: The Console has been updated in the database.
+        '404':
+          description: The Console was not found in the database.
+  /console/{id}:
+    get:
+      summary: Retrieve a single Console in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Console to be retrieved from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: A single Console was retrieved from the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+        '404':
+          description: The Console requested was not found in the database.
+    delete:
+      summary: Delete an Console in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Console to be removed from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: The Console was removed from the database.
+        '404':
+          description: The Console to be removed was not found in the database.
+  /console/byManufacturer/{manufacturer}:
+    get:
+      summary: Retrieve a single Console in the database.
+      parameters:
+        - name: manufacturer
+          in: path
+          required: true
+          description: The name of the manufacturer of the console's to be retrieved from the database.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of console's made my manufacturer requested is returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Console'
+  /game:
+    get:
+      summary: A list of all games.
+      responses:
+        '200':
+          description: A list of all Games in the database.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+    post:
+      summary: Create a new Game.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: The Game has been created and added to the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '422':
+          description: User has omitted required parameters when trying to add a Game to the database.
+    put:
+      summary: Update a Game in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: The Game has been updated in the database.
+        '404':
+          description: The Game was not found in the database.
+  /game/{id}:
+    get:
+      summary: Retrieve a single Game in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Game to be retrieved from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: A single Game was retrieved from the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '404':
+          description: The Game requested was not found in the database.
+    delete:
+      summary: Delete an Game in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Game to be removed from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: The Game was removed from the database.
+        '404':
+          description: The Game to be removed was not found in the database.
+  /game/byStudio/{studio}:
+    get:
+      summary: Retrieve a list of Games in the database by studio.
+      parameters:
+        - name: studio
+          in: path
+          required: true
+          description: The name of the studio of the games's to be retrieved from the database.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of games's made my studio requested is returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+  /game/byEsrbRating/{esrbRating}:
+    get:
+      summary: Retrieve a list of Games in the database by esrbRating.
+      parameters:
+      - name: esrbRating
+        in: path
+        required: true
+        description: The ESRB Rating of the games' to be retrieved from the database.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: a list of game's with the ESRB rating requested is returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+  /game/byTitle/{title}:
+    get:
+      summary: Retrieve a list of Games in the database by title.
+      parameters:
+      - name: title
+        in: path
+        required: true
+        description: A list of games to be retrieved from the database with the requested title.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of game's with the requested title is returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+  /tshirt:
+    get:
+      summary: A list of all T-Shirts.
+      responses:
+        '200':
+          description: A list of all T-Shirts in the database.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TShirt'
+    post:
+      summary: Create a new T-Shirt.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TShirt'
+      responses:
+        '200':
+          description: The T-Shirt has been created and added to the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TShirt'
+        '422':
+          description: User has omitted required parameters when trying to add a T-Shirt to the database.
+    put:
+      summary: Update a T-Shirt in the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TShirt'
+      responses:
+        '200':
+          description: The T-Shirt has been updated in the database.
+        '404':
+          description: The T-Shrt was not found in the database.
+  /tshirt/{id}:
+    get:
+      summary: Retrieve a single T-Shirt in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the T-Shirt to be retrieved from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: A single T-Shirt was retrieved from the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TShirt'
+        '404':
+          description: The TShirt requested was not found in the database.
+    delete:
+      summary: Delete an T-Shirt in the database.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the T-Shirt to be removed from the database.
+          schema:
+            type: number
+      responses:
+        '200':
+          description: The T-Shirt was removed from the database.
+        '404':
+          description: The T-Shirt to be removed was not found in the database.
+  /tshirt/byColor/{color}:
+    get:
+      summary: Retrieve a list of T-Shirts in the database by color.
+      parameters:
+        - name: color
+          in: path
+          required: true
+          description: The color of the T-Shirts to be retrieved from the database.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of T-Shirt's by color requested is returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TShirt'
+  /tshirt/bySize/{size}:
+    get:
+      summary: Retrieve a list of T-Shirts in the database by size.
+      parameters:
+      - name: size
+        in: path
+        required: true
+        description: The Size of the T-Shirt's to be retrieved from the database.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of T-Shirt's by size requested is returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TShirt'
+  /order:
+    post:
+      summary: Create a new Order.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput' 
+      responses:
+        '200':
+          description: The Order has been created. An invoice of the order has been added to the database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '422':
+          description: User has omitted required parameters when trying to place an order.
+components:
+  schemas:
+    Console:
+      properties:
+        id:
+          type: number
+        model:
+          type: string
+        manufacturer:
+          type: string
+        memoryAmount:
+          type: string
+        processor:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: number
+    Game:
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        esrbRating:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        studio:
+          type: string
+        quantity:
+          type: number
+    TShirt:
+      properties:
+        id:
+          type: number
+        size:
+          type: string
+        color:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: number
+    OrderInput:
+      properties:
+        name:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        itemType:
+          type: string
+        itemId:
+          type: number
+        quantity:
+          type: number
+    OrderResponse:
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        itemType:
+          type: string
+        itemId:
+          type: number
+        unitPrice:
+          type: number
+        quantity:
+          type: number
+        subtotal:
+          type: number
+        tax:
+          type: number
+        processingFee:
+          type: number
+        total:
+          type: number
